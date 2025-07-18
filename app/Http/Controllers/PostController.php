@@ -17,8 +17,8 @@ class PostController extends Controller
         $categories = Category::all();
         $selectedCategory = $request->query('category');
         $posts = $selectedCategory
-            ? Post::where('category_id', $selectedCategory)->get()
-            : Post::all();
+            ? Post::where('category_id', $selectedCategory)->paginate(10)
+            : Post::paginate(10);
 
         return view('posts.index', compact('posts', 'categories', 'selectedCategory'));
     }
